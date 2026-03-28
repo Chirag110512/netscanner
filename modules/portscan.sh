@@ -50,7 +50,7 @@ scan_ports() {
 
     for port in $PORTS; do
         service=$(PORT_NAME $port)
-        (echo > /dev/tcp/$target/$port) 2>/dev/null
+        timeout 1 bash -c "echo > /dev/tcp/$target/$port" 2>/dev/null
         if [ $? -eq 0 ]; then
             printf "%-10s %-15s OPEN\n" "$port" "$service"
             open_count=$((open_count + 1))
