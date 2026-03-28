@@ -1,81 +1,130 @@
-This is my Linux assignment project. It is a network scanner built using bash scripting
-that can find devices on a network and check open ports.
+#Student Details
 
-## What it does
+Name: Chirag Kabra
+Reg No.: 24BAI10901
+University: Vit Bhopal University
+Course: Open Source Linux
 
-- Shows your current network info like IP address, gateway, DNS servers
-- Scans a subnet to find which devices are currently online
-- Checks common ports on a given IP to see which ones are open
-- Saves all results to a report file automatically
+A command-line network scanning tool built with Bash scripting on Linux.
+It can show network info, discover live hosts on a subnet, and scan open ports.
 
-## Requirements
+This project runs on Linux. If you are on Windows, use WSL (Windows Subsystem for Linux).
 
-- Linux (tested on Ubuntu 22.04 with WSL2)
-- Bash 4.0 or higher
-- Tools: ping, ip, grep, awk (these come pre-installed on Linux)
-- No need to install nmap or python
+### Step 1 - Install WSL (Windows users only)
 
-## How to Setup and Run
+Open PowerShell as Administrator and run:
 
-Step 1 - Clone the repository:
+    wsl --install -d Ubuntu
 
-git clone https://github.com/Chirag110512/netscanner.git
-cd netscanner
+Restart your PC. Then open Ubuntu from Start menu and create a username and password.
 
-Step 2 - Give execute permissions:
+### Step 2 - Update your system
 
-chmod +x netscanner.sh
-chmod +x modules/*.sh
+Open Ubuntu terminal and run:
 
-Step 3 - Run the tool:
+    sudo apt update && sudo apt upgrade -y
 
-./netscanner.sh
+### Step 3 - Install Git
 
-This opens an interactive menu. Choose options by typing 1 to 5.
+    sudo apt install git -y
 
-## Command Line Options
+Verify:
 
-./netscanner.sh --help
-./netscanner.sh --info
-./netscanner.sh --scan 192.168.1.0/24
-./netscanner.sh --ports 8.8.8.8
-./netscanner.sh --report
+    git --version
 
-## Examples
+---
 
-Show your network information:
-./netscanner.sh --info
+## Installation
 
-Find all live devices on your network:
-./netscanner.sh --scan 192.168.1.0/24
+### Step 4 - Clone the repository
 
-Scan ports on Google DNS:
-./netscanner.sh --ports 8.8.8.8
+    git clone https://github.com/Chirag110512/netscanner.git
 
-View last scan report:
-./netscanner.sh --report
+### Step 5 - Go into the project folder
+
+    cd netscanner
+### Step 6 - Give execute permissions to all scripts
+
+    chmod +x netscanner.sh
+    chmod +x modules/*.sh
+
+### Step 7 - Create required folders if not present
+
+    mkdir -p logs reports
+
+---
+
+## Running the Project
+
+### Run with interactive menu:
+
+    ./netscanner.sh
+You will see a menu like this:
+
+    ===============================
+       NetScanner - My Linux Tool
+    ===============================
+    1. Show my network info
+    2. Find devices on network
+    3. Scan ports on a device
+    4. Show last report
+    5. Exit
+    ===============================
+
+Type a number and press Enter to choose an option.
+
+### Run with command line options:
+Show help:
+
+    ./netscanner.sh --help
+
+Show network info (IP, gateway, DNS, internet status):
+
+    ./netscanner.sh --info
+
+Discover live hosts on a subnet:
+
+    ./netscanner.sh --scan 192.168.1.0/24
+
+Scan open ports on an IP:
+
+    ./netscanner.sh --ports 8.8.8.8
+View last saved scan report:
+
+    ./netscanner.sh --report
+
+---
 
 ## Project Structure
 
-netscanner/
-├── netscanner.sh       <- main script, run this
-├── README.md           <- this file
-├── modules/
-│   ├── net_info.sh     <- shows network details
-│   ├── discover.sh     <- finds live hosts using ping
-│   └── portscan.sh     <- checks open ports using /dev/tcp
-├── logs/               <- activity logs saved here
-└── reports/            <- scan results saved here
+    netscanner/
+    ├── netscanner.sh        <- main script, start here
+    ├── README.md            <- this file
+    ├── modules/
+    │   ├── net_info.sh      <- shows local network information
+    │   ├── discover.sh      <- discovers live hosts using ping
+    │   └── portscan.sh      <- scans open TCP ports
+    ├── logs/
+    │   └── activity.log     <- auto generated activity log
+    └── reports/
+        └── scan_report.txt  <- auto saved scan results
 
-## How it works
+## Dependencies
 
-- Host discovery uses ping to check each IP in the subnet one by one
-- Port scanner uses the bash built-in /dev/tcp trick to test if a port is open
-- Results are automatically saved to reports/scan_report.txt
-- All activity is logged to logs/activity.log with timestamps
+All tools used are pre-installed on Ubuntu Linux:
 
-## Notes
+- bash
+- ping
+- ip
+- grep
+- awk
+- cut
+- seq
 
-- Host discovery only supports /24 subnets right now
-- Port scanner checks 15 common ports
-- Tested on Ubuntu 22.04 WSL2 on Windows 11
+No external tools like nmap or python are needed.
+
+## Tested On
+
+- Ubuntu 22.04 LTS
+- WSL2 on Windows 11
+- Bash 5.1
