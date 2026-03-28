@@ -1,3 +1,4 @@
+My Name is Chirag Kabra
 This is my Linux assignment project. It is a network scanner built using bash scripting
 that can find devices on a network and check open ports.
 
